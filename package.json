@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "daisyui": "^5.0.38",
     "next": "15.3.2",
     "openai": "^4.103.0",
     "react": "^19.0.0",
@@ -21,6 +20,8 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
+    "daisyui": "^5.0.38",
+    "lucide-react": "^0.511.0",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "tailwindcss": "^4.1.7",

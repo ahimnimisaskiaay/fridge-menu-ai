@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap');
+@tailwind utilities;
+@plugin "daisyui";
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -22,6 +26,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Noto Sans Devanagari', sans-serif;
 }
 
 * {
@@ -40,7 +45,3 @@ a {
     color-scheme: dark;
   }
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
