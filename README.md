@@ -60,7 +60,8 @@
 - app/
   - page.tsx （メイン画面）
   - api/
-    - gpt.ts （GPT API呼び出し）
+    - gpt/
+      - route.ts （GPT API呼び出し）
 - components/
   - ChatInput.tsx （入力欄コンポーネント）
   - IngredientList.tsx （食材リスト表示）
