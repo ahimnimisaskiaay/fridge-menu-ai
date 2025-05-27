@@ -11,15 +11,15 @@
 
 ## 使用技術スタック（MVP前提）
 
-| 分類             | 技術 / ツール              | 用途                       |
-| ---------------- | -------------------------- | -------------------------- |
-| フロント         | Next.js（App Router）      | ページ構成、ルーティング   |
-| スタイリング     | Tailwind CSS               | UIスタイル設計             |
-| UIコンポーネント | shadcn/ui                  | 入力欄・ボタン・カードなど |
-| 状態管理         | useState / useEffect       | 食材リストなどの状態保持   |
-| AI連携           | OpenAI Chat Completion API | 献立の自動提案             |
-| データ保存       | localStorage（MVP想定）    | 食材の保存（簡易実装）     |
-| 自動デプロイ     | GitHub + Vercel            | コミットで自動デプロイ     |
+| 分類             | 技術 / ツール               | 用途                               |
+| ---------------- | --------------------------- | ---------------------------------- |
+| フロント         | Next.js（App Router）       | ページ構成、ルーティング           |
+| スタイリング     | Tailwind CSS + DaisyUI      | UIスタイル設計、基本コンポーネント |
+| UIコンポーネント | lucide-react（＋shadcn/ui） | アイコン表示、必要に応じてUI拡張   |
+| 状態管理         | React useState / useEffect  | 食材リストやチャット履歴の状態管理 |
+| AI連携           | OpenAI Chat Completion API  | 食材に応じた献立の自動提案         |
+| データ保存       | localStorage（予定）        | 食材リスト・履歴の保存             |
+| デプロイ         | GitHub + Vercel             | mainブランチへのpushで自動デプロイ |
 
 ---
 
@@ -66,6 +66,8 @@
   - ChatInput.tsx （入力欄コンポーネント）
   - IngredientList.tsx （食材リスト表示）
   - MenuResult.tsx （GPTの返答表示）
+  - ChatHeader.tsx　(ヘッダーコンポーネント)
+  - ChatMessages.tsx　(メッセージコンポーネント)
 - lib/
   - openai.ts （OpenAIクライアント処理）
 - utils/
@@ -83,4 +85,4 @@
 
 - プロジェクト初期化済（create-next-app）
 - README作成済／GitHub公開済
-- MVP機能の実装に着手予定
+- MVP機能の実装に着手中

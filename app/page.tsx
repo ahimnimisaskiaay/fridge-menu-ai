@@ -1,37 +1,52 @@
 'use client'
-
 import { useState } from 'react'
-import { MenuResult, IngredientList, ChatInput } from '@/app/components'
+import ChatHeader from './components/ChatHeader'
+import ChatMessages from './components/ChatMessages'
+import ChatInput from './components/ChatInput'
 
-export default function Page() {
-  const [input, setInput] = useState('')
-  const [ingredients, setIngredients] = useState<string[]>([])
-  const [reply, setReply] = useState<string | null>(null)
+export type Menu = {
+  title: string
+  steps: string[]
+  note: string
+}
 
-  const handleSend = async () => {
-    if (!input.trim()) return
+export type Message =
+  | { role: 'user'; text: string }
+  | { role: 'assistant'; menu: Menu }
 
-    const updatedIngredients = [...ingredients, input.trim()]
-    setIngredients(updatedIngredients)
-    setInput('')
+export default function HomePage() {
+  const [messages, setMessages] = useState<Message[]>([])
 
-    const res = await fetch('/api/gpt', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: updatedIngredients.join('、'),
-      }),
-    })
+  const handleSend = async (input: string) => {
+    const newMessages: Message[] = [...messages, { role: 'user', text: input }]
+    setMessages(newMessages)
 
-    const data = await res.json()
-    setReply(data.reply)
+    try {
+      const res = await fetch('/api/gpt', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: input }),
+      })
+      const raw = await res.json()
+      const data: Menu[] = raw.reply
+
+      const newAssistantMessages: Message[] = data.map(
+        (menu): Message => ({
+          role: 'assistant',
+          menu,
+        })
+      )
+      setMessages([...newMessages, ...newAssistantMessages])
+    } catch (error) {
+      console.error('API Error:', error)
+    }
   }
 
   return (
-    <main className="max-w-md mx-auto p-4 space-y-4">
-      <IngredientList items={ingredients} />
-      {reply && <MenuResult text={reply} />}
-      <ChatInput value={input} onChange={setInput} onSend={handleSend} />
-    </main>
+    <div className="flex flex-col h-screen max-w-sm w-full mx-auto bg-base-100 shadow-md border border-gray-200 rounded-md overflow-hidden">
+      <ChatHeader />
+      <ChatMessages messages={messages} />
+      <ChatInput onSend={handleSend} />
+    </div>
   )
 }

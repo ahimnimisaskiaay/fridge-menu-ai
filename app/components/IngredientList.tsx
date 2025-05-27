@@ -1,7 +1,7 @@
 type Props = {
   items: string[]
 }
-
+// TODO:要整備　食材登録時に使用予定
 export const IngredientList = ({ items }: Props) => {
   if (items.length === 0) return null
 
