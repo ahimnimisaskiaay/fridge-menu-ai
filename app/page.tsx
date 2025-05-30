@@ -16,6 +16,7 @@ export type Message =
 
 export default function HomePage() {
   const [messages, setMessages] = useState<Message[]>([])
+  const [activeTab, setActiveTab] = useState<'menu' | 'ingredients'>('menu')
 
   const handleSend = async (input: string) => {
     const newMessages: Message[] = [...messages, { role: 'user', text: input }]
@@ -43,10 +44,42 @@ export default function HomePage() {
   }
 
   return (
-    <div className="flex flex-col h-screen max-w-sm w-full mx-auto bg-base-100 shadow-md border border-gray-200 rounded-md overflow-hidden">
-      <ChatHeader />
-      <ChatMessages messages={messages} />
-      <ChatInput onSend={handleSend} />
-    </div>
+    <main className="flex justify-center min-h-screen bg-gray-100 px-4 py-6">
+      <div className="flex flex-col w-full max-w-[393px] h-screen shadow-md border-gray-100  border-10 rounded-md overflow-hidden">
+        <ChatHeader />
+        <ChatMessages messages={messages} />
+        <div>
+          <div role="tablist" className="tabs tabs-lift">
+            <a
+              role="tab"
+              className={`tab ${activeTab === 'menu' ? 'tab-active' : ''}`}
+              onClick={() => setActiveTab('menu')}
+            >
+              メニューの提案
+            </a>
+            <a
+              role="tab"
+              className={`tab ${activeTab === 'ingredients' ? 'tab-active' : ''}`}
+              onClick={() => setActiveTab('ingredients')}
+            >
+              食材の登録
+            </a>
+          </div>
+
+          <div className="mt-4">
+            {activeTab === 'menu' && (
+              <div role="tabpanel" className="p-4">
+                <ChatInput onSend={handleSend} isMenu />
+              </div>
+            )}
+            {activeTab === 'ingredients' && (
+              <div role="tabpanel" className="p-4">
+                <ChatInput onSend={handleSend} />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </main>
   )
 }
